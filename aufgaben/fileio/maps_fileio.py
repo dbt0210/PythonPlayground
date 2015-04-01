@@ -1,51 +1,73 @@
-#WIP
-__author__ = 'dbt'
-cfg = {}
+import pickle
 
 
-def read(string):
-    try:
-        file = open(string)
-        for line in file:
-            (key, value) = line.split("=")
-            cfg[key] = value
-            print("File parsing done. Map: "+str(cfg))
-    except FileNotFoundError:
-        print("File does not exist. Creating one...")
+class MapFile:
+
+    def __init__(self, path):
+        self.cfg = {}
+        self.path = path
+
+    def __str__(self):
+        return str(self.cfg)
+
+    def get(self, key):
+        return self.cfg.get(key)
+
+    def put(self, key, value):
+        self.cfg[key] = value
+
+    def read(self):
         try:
-            file = open(string, "w")
+            with open(self.path) as file:
+                for line in file:
+                    (key, value) = line.split("=")
+                    self.cfg[key] = value
+        except FileNotFoundError:
+            print("File does not exist.")
+
+    def write(self):
+        try:
+            with open(self.path, "w") as file:
+                for (k) in self.cfg.keys():
+                    print(str(k)+"="+str(self.cfg[k]), file=file)
         except:
             print("Something went wrong.")
-        finally:
-            file.close()
 
+    def read_pickle(self):
+        try:
+            with open(self.path, "rb") as file:
+                self.cfg = pickle.load(file)
+        except FileNotFoundError:
+            print("File does not exist.")
 
-def write(string):
-    try:
-        file = open(string, "w")
-        for (k) in cfg.keys():
-            print(str(k)+"="+str(cfg[k]), file=file)
-        print("Writing done.")
-    except:
-        print("Something went wrong.")
-    finally:
-        file.close()
+    def write_pickle(self):
+        try:
+            with open(self.path, "wb") as file:
+                pickle.dump(self.cfg, file)
+        except:
+            print("Can't write to "+self.path+".")
 
+# testing code
 
-def get(key):
-    return cfg.get(key)
+def test1(mapfile: MapFile):
+    mapfile.read()
+    mapfile.put("testkey", "testvalue")
+    mapfile.put("testkeyint", 2)
+    print(mapfile)
 
+    cmd = "mapfile.get(\"testkeyint\")"
+    print(cmd + " = " + str(eval(cmd)))
+    mapfile.write()
 
-def put(key, value):
-    cfg[key] = value
+def test2(mapfile: MapFile):
+    mapfile.put("testkey1", "testvalue1")
+    mapfile.put("testkey2", "testvalue2")
+    mapfile.write_pickle()
+    tmp = MapFile("ignore_config.dat")
+    tmp.read_pickle()
+    print(tmp)
 
+# running code
 
-#Test
-filename="ignore_config.txt"
-
-read(filename)
-put("testkey", "testvalue")
-put("testkeyint", 2)
-print("get(\"testkeyint\") = " + str(get("testkeyint")))
-print("Whole Dictionary: " + str(cfg))
-write(filename)
+test1(MapFile("ignore_config.txt"))
+test2(MapFile("ignore_config.dat"))
