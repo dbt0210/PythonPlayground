@@ -1,49 +1,43 @@
 import pickle
 
 
-class MapFile:
+class MapFile(dict):
 
     def __init__(self, path):
-        self.cfg = {}
         self.path = path
 
-    def __str__(self):
-        return str(self.cfg)
-
-    def get(self, key):
-        return self.cfg.get(key)
-
     def put(self, key, value):
-        self.cfg[key] = value
+        self[key] = value
 
     def read(self):
         try:
             with open(self.path) as file:
                 for line in file:
                     (key, value) = line.split("=")
-                    self.cfg[key] = value
+                    self[key] = value
         except FileNotFoundError:
             print("File does not exist.")
 
     def write(self):
         try:
             with open(self.path, "w") as file:
-                for (k) in self.cfg.keys():
-                    print(str(k)+"="+str(self.cfg[k]), file=file)
+                for (k) in self.keys():
+                    print(str(k)+"="+str(self[k]), file=file)
         except:
             print("Something went wrong.")
 
     def read_pickle(self):
         try:
             with open(self.path, "rb") as file:
-                self.cfg = pickle.load(file)
+                self.clear()
+                self.update(pickle.load(file))
         except FileNotFoundError:
             print("File does not exist.")
 
     def write_pickle(self):
         try:
             with open(self.path, "wb") as file:
-                pickle.dump(self.cfg, file)
+                pickle.dump(self, file)
         except:
             print("Can't write to "+self.path+".")
 
@@ -52,7 +46,7 @@ class MapFile:
 def test1(mapfile: MapFile):
     mapfile.read()
     mapfile.put("testkey", "testvalue")
-    mapfile.put("testkeyint", 2)
+    mapfile["testkeyint"] = 2
     print(mapfile)
 
     cmd = "mapfile.get(\"testkeyint\")"
