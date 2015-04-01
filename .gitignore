@@ -55,3 +55,9 @@ docs/_build/
 
 # PyBuilder
 target/
+
+#PyCharm Stuff
+.idea/
+
+#Custom Stuff
+ignore_*
