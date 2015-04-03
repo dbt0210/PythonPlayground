@@ -23,5 +23,3 @@ c = min_max(liste)[0]
 
 # Werte tauschen
 a, b = b, a
-
-# super awesome and important comment
