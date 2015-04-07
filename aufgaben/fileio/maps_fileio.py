@@ -41,17 +41,17 @@ class MapFile(dict):
         except:
             print("Can't write to "+self.path+".")
 
-# testing code
 
+# testing code
 def test1(mapfile: MapFile):
     mapfile.read()
     mapfile.put("testkey", "testvalue")
     mapfile["testkeyint"] = 2
     print(mapfile)
-
     cmd = "mapfile.get(\"testkeyint\")"
     print(cmd + " = " + str(eval(cmd)))
     mapfile.write()
+
 
 def test2(mapfile: MapFile):
     mapfile.put("testkey1", "testvalue1")
@@ -61,7 +61,7 @@ def test2(mapfile: MapFile):
     tmp.read_pickle()
     print(tmp)
 
-# running code
 
+# running code
 test1(MapFile("ignore_config.txt"))
 test2(MapFile("ignore_config.dat"))

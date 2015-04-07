@@ -22,11 +22,11 @@ def fac_iter(number):
     return res
 
 
-# Test
+# testing code
 print("sqrt(10) = " + str(guess_sqrt(10)))
 # this is quite fast
 print("42000! = " + str(factorial(42000)))
 # this isn't
 print("42000! = " + str(fac_iter(42000)))
 # Python's default maximum recursion depth is 1000.
-# print("42000! = " + fac_rec(42000))
+# print("42000! = " + str(fac_rec(42000)))

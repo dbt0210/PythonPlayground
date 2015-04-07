@@ -1,6 +1,3 @@
-__author__ = 'thomas'
-
-
 def min_max(l: list) -> tuple:
     minv = l[0]
     maxv = l[0]
@@ -11,15 +8,15 @@ def min_max(l: list) -> tuple:
             maxv = i
     return minv, maxv
 
-# Test und Aufruf
 
+# testing code
 liste = [3, 2, 1, 4, 5, 6, 9, 8, 7]
 (a, b) = min_max(liste)
 print("min:", a)
 print("max:", b)
 
-# Einen Wert annehmen
+# extract single value from tuple
 c = min_max(liste)[0]
 
-# Werte tauschen
+# swap
 a, b = b, a
