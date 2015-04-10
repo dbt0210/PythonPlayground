@@ -1,0 +1,4 @@
+https://github.com/dbt0210/PythonPlayground.git
+
+Hab mal ein kleines Repo in github eingerichtet. Denke das können wir für Aufgaben und Lösungen gebrauchen.
+Würde empfehlen, SourceTree zum synchronisieren und kdiff3 zum mergen zu nutzen, liegt natürlich bei euch.
