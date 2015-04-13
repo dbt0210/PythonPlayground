@@ -29,10 +29,15 @@ class Vector3D():
     def __str__(self):
         return "Vector3D({0}, {1}, {2})".format(self.x, self.y, self.z)
 
+    def __floordiv__(self, other):
+        return self.x*other.x + self.y * other.y + self.z * other.z
+
 
 a = Vector3D(0, 5, 0)
 a += Vector3D(5, 0, 1)
 print(a)
 a -= Vector3D(3, 3, 3)
 print(a)
-print(Vector3D(0, 0, 1) * 3)
+
+b = Vector3D(2, 4, 5)
+print(a // b)
