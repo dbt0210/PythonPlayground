@@ -1,8 +1,5 @@
-__author__ = "thomas"
-
 for i in range(99, -1, -1):
-    print("No more" if i == 0 else i, "bottles" if i != 1 else "bottle", "of beer on the wall!", end=" ")
-    print("No more" if i == 0 else i, "bottles" if i != 1 else "bottle", "of beer!")
+    print("{0} bottle{1} of beer on the wall! {0} bottle{1} of beer!".format("No more" if i == 0 else i, "s" if i != 1 else ""))
     if i != 0:
         print("Take one down, pass it around!", end=" ")
     else:
