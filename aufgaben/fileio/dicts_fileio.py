@@ -1,13 +1,10 @@
 import pickle
 
 
-class MapFile(dict):
+class DictFile(dict):
 
     def __init__(self, path):
         self.path = path
-
-    def put(self, key, value):
-        self[key] = value
 
     def read(self):
         try:
@@ -43,25 +40,26 @@ class MapFile(dict):
 
 
 # testing code
-def test1(mapfile: MapFile):
-    mapfile.read()
-    mapfile.put("testkey", "testvalue")
-    mapfile["testkeyint"] = 2
-    print(mapfile)
+def test1(testdict: DictFile):
+    testdict.read()
+    testdict["testkey"] = "testvalue"
+    testdict["testkeyint"] = 2
+    print(testdict)
+    # by the way, you can also eval("expressions").
     cmd = "mapfile.get(\"testkeyint\")"
     print(cmd + " = " + str(eval(cmd)))
-    mapfile.write()
+    testdict.write()
 
 
-def test2(mapfile: MapFile):
-    mapfile.put("testkey1", "testvalue1")
-    mapfile.put("testkey2", "testvalue2")
-    mapfile.write_pickle()
-    tmp = MapFile("ignore_config.dat")
+def test2(testdict: DictFile):
+    testdict["testkey1"] = "testvalue1"
+    testdict["testkey2"] = "testvalue2"
+    testdict.write_pickle()
+    tmp = DictFile("ignore_config.p")
     tmp.read_pickle()
     print(tmp)
 
 
 # running code
-test1(MapFile("ignore_config.txt"))
-test2(MapFile("ignore_config.dat"))
+test1(DictFile("ignore_config.txt"))
+test2(DictFile("ignore_config.p"))
