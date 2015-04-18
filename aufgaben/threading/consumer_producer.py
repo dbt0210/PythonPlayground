@@ -8,16 +8,17 @@ q = []
 
 def produce():
     while running:
-        q.append("A task")
-        print("Appending task to queue")
+        taskno = random.randint(0, 1000)
+        q.append(taskno)
+        print("Queueing task", taskno)
         time.sleep(random.randrange(50)/100)
 
 
 def consume():
     while running:
         if len(q) > 0:
-            q.pop()
-            print("Removing task from queue")
+            taskno = q.pop(0)
+            print("Removing task {} from queue".format(taskno))
         time.sleep(random.randrange(70)/100)
 
 
@@ -30,7 +31,7 @@ running = True
 t1.start()
 t2.start()
 
-time.sleep(20)
+time.sleep(5)
 running = False
 
 print(len(q))
