@@ -1,10 +1,9 @@
-__author__ = 'Thomas'
 import time
 import threading
 import random
 
+# Setup code: initialize Queue, Consumer, Producer
 q = []
-running = True
 
 
 def produce():
@@ -25,6 +24,9 @@ def consume():
 t1 = threading.Thread(name="Producer", target=produce)
 t2 = threading.Thread(name="Consumer", target=consume)
 
+
+# Running code:
+running = True
 t1.start()
 t2.start()
 
