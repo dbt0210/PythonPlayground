@@ -1,23 +1,24 @@
 import time
 import threading
 import random
+import queue
 
 # Setup code: initialize Queue, Consumer, Producer
-q = []
+q = queue.Queue()
 
 
 def produce():
     while running:
         taskno = random.randint(0, 1000)
-        q.append(taskno)
+        q.put(taskno)
         print("Queueing task", taskno)
         time.sleep(random.randrange(50)/100)
 
 
 def consume():
     while running:
-        if len(q) > 0:
-            taskno = q.pop(0)
+        if q.qsize() > 0:
+            taskno = q.get()
             print("Removing task {} from queue".format(taskno))
         time.sleep(random.randrange(70)/100)
 
@@ -34,4 +35,4 @@ t2.start()
 time.sleep(5)
 running = False
 
-print(len(q))
+print(q.qsize())
